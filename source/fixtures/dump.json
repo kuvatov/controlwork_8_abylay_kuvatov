@@ -1,0 +1,140 @@
+[
+{
+  "model": "webapp.product",
+  "pk": 1,
+  "fields": {
+    "name": "Мясо",
+    "category": "foods",
+    "description": "Мя́со — скелетная поперечно-полосатая мускулатура животного с прилегающими к ней жировой и соединительной тканями, а также прилегающей костной тканью (костное мясо или мясо на кости) или без неё (бескостное мясо)",
+    "image": "product_images/meat.jpg"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 2,
+  "fields": {
+    "name": "Coca-Cola",
+    "category": "drinks",
+    "description": "",
+    "image": "product_images/coca-cola.jpg"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 3,
+  "fields": {
+    "name": "Виски",
+    "category": "drinks",
+    "description": "Ви́ски — крепкий ароматный алкогольный напиток, получаемый из различных видов зерна с использованием процессов соложения, брожения, перегонки и длительного выдерживания в дубовых бочках. При изготовлении виски может использоваться ячмень, рожь, пшеница или кукуруза.",
+    "image": "product_images/whiskey.jpg"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 4,
+  "fields": {
+    "name": "Яблоко",
+    "category": "foods",
+    "description": "",
+    "image": "product_images/apple.jpg"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 5,
+  "fields": {
+    "name": "Куртка",
+    "category": "clothes",
+    "description": "",
+    "image": "product_images/jacket.jpg"
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 6,
+  "fields": {
+    "name": "Платье",
+    "category": "clothes",
+    "description": "Плáтье — предмет женского гардероба, обязательно с достаточно длинными полами, укрывающими тело и верхнюю часть ног. Платья — это верхняя одежда, состоящая из лифа и юбки, которая может быть изготовлена ​​из одной или нескольких частей.",
+    "image": "product_images/dress.jpg"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 2,
+  "fields": {
+    "author": 1,
+    "product": 3,
+    "text": "Приятное послевкусие",
+    "rating": 5
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 3,
+  "fields": {
+    "author": 1,
+    "product": 1,
+    "text": "Мясо высшего качества!",
+    "rating": 5
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 4,
+  "fields": {
+    "author": 1,
+    "product": 2,
+    "text": "Слишком сладкий напиток",
+    "rating": 3
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 5,
+  "fields": {
+    "author": 1,
+    "product": 4,
+    "text": "Приятный аромат",
+    "rating": 4
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 6,
+  "fields": {
+    "author": 1,
+    "product": 5,
+    "text": "Не греет!!!",
+    "rating": 1
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 7,
+  "fields": {
+    "author": 1,
+    "product": 6,
+    "text": "Купил девушке, она в восторге!",
+    "rating": 5
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$tbIiOvnVwdRQohFk9aMdLR$mqNet2sqEFqe7eAH9Mz+BOUTLW4zZKBo5dEsdab2Cko=",
+    "last_login": "2023-03-25T06:02:06.085Z",
+    "is_superuser": true,
+    "username": "root",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-03-25T06:01:54.679Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
