@@ -50,16 +50,60 @@
     <img src="../../../static/media/no_image.jpg" alt="No Image" width="200">
     {% endif %}
 </p>
-<!--<h2>Отзывы</h2>-->
-<!--<ul>-->
-<!--    {% for review in object.reviews.all %}-->
-<!--    <li>-->
-<!--        <p>{{ review.text }}</p>-->
-<!--        <p>Автор: {{ review.author }}</p>-->
-<!--        <p>Оценка: {{ review.rating }}</p>-->
-<!--    </li>-->
-<!--    {% empty %}-->
-<!--    <li>Нет отзывов.</li>-->
-<!--    {% endfor %}-->
-<!--</ul>-->
+<h2>Отзывы</h2>
+
+
+<div class="page_action pb-3">
+    <a href="{% url 'review_create' product.pk %}" class="btn btn-primary">Добавить отзыв</a>
+</div>
+
+
+<ul>
+    {% for review in product.reviews.all %}
+    <li>
+        <p>{{ review.text }}</p>
+        <p>Автор: {{ review.author }}</p>
+        <p>Оценка: {{ review.rating }}</p>
+    </li>
+
+    <div class="page_action pb-3">
+        <a href="{% url 'review_update' review.pk %}" class="btn btn-primary">Редактировать</a>
+        <a href="{% url 'review_delete' review.pk %}" data-bs-toggle="modal"
+           data-bs-target="#exampleModal-{{ review.pk }}" class="btn btn-danger">Удалить</a>
+    </div>
+    <div class="confirm-delete">
+        <div class="modal fade" id="exampleModal-{{ review.pk }}" tabindex="-1"
+             aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Подтвердите удаление</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row form-login">
+                            <p>Вы уверены, что хотите удалить отзыв?!
+                            </p>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'review_delete' review.pk %}"
+                           class="btn btn-danger">Удалить</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% empty %}
+    <li>Нет отзывов.</li>
+    {% endfor %}
+</ul>
 {% endblock %}

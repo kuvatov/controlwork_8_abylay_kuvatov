@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Удаление товара</h1>
-<p>Вы действительно хотите удалить товар "{{ product.name }}"?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Удалить</button>
-</form>
-{% endblock %}
