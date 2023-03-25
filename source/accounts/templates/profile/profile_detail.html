@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ user.username }}</h2>
+<a class="nav-link active" aria-current="page" href="{% url 'profile_update' user.pk %}">редактировать</a>
+<a class="nav-link active" aria-current="page" href="{% url 'profile_password_change' user.pk %}">сменить пароль</a>
+<p>Имя: {{ user.first_name }}</p>
+<p>Email: {{ user.email }}</p>
+<h3>Отзывы пользователя:</h3>
+{% if user.reviews %}
+<ul>
+    {% for review in user.reviews.all %}
+    <li>
+        <a href="{% url 'review_detail' review.product.pk review.pk %}">
+            Отзыв на {{ review.product.name }} ({{ review.rating }}/5 звезд)
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Нет отзывов.</p>
+{% endif %}
+{% endblock %}

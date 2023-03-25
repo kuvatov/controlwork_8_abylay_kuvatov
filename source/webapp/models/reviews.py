@@ -6,6 +6,7 @@ class Review(models.Model):
     author = models.ForeignKey(
         to=get_user_model(),
         on_delete=models.CASCADE,
+        related_name='comments',
         verbose_name='Автор'
     )
     product = models.ForeignKey(

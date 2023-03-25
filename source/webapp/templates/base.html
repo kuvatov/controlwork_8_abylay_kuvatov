@@ -40,6 +40,10 @@
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'profile_detail' user.pk %}">личная
+                                страница</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">выход</a>
                         </li>
                         {% else %}
