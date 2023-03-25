@@ -32,12 +32,24 @@
                         </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'product_list' %}">Товары</a>
+                            <a class="nav-link active" aria-current="page" href="{% url 'product_list' %}">товары</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'product_create' %}">добавить
                                 товар</a>
                         </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">выход</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'register' %}">регистрация</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
