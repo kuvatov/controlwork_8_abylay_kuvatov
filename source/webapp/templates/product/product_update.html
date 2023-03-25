@@ -1,0 +1,7 @@
+{% block title %}Product Update{% endblock %}
+{% block content_heading %}Редактировать товар{% endblock %}
+{% block content %}
+<form action="{% url 'product_update' product.pk %}" method="post" enctype="multipart/form-data" novalidate>
+    {% include 'partial/product_form.html' %}
+</form>
+{% endblock %}

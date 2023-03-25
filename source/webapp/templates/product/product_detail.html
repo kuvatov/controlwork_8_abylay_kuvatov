@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page_action pb-3">
+    <a href="{% url 'product_update' product.pk %}" class="btn btn-primary">Редактировать</a>
+    <a href="{% url 'product_delete' product.pk %}" data-bs-toggle="modal"
+       data-bs-target="#exampleModal-{{ product.pk }}" class="btn btn-danger">Удалить</a>
+</div>
+<div class="confirm-delete">
+    <div class="modal fade" id="exampleModal-{{ product.pk }}" tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подтвердите удаление</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row form-login">
+                        <p>Вы уверены, что хотите удалить товар - {{ product.name }}?!
+                        </p>
+                    </div>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'product_delete' product.pk %}"
+                       class="btn btn-danger">Удалить</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Отмена
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h1>{{ product.title }}</h1>
+<p>Категория: {{ product.category }}</p>
+{% if product.description %}
+<p class="card-text"><b>Описание:</b> {{ product.description }}</p>
+{% else %}
+<p class="card-text"><b>Описание:</b> Не добавлено!</p>
+{% endif %}
+<p>
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="200">
+    {% else %}
+    <img src="../../../static/media/no_image.jpg" alt="No Image" width="200">
+    {% endif %}
+</p>
+<!--<h2>Отзывы</h2>-->
+<!--<ul>-->
+<!--    {% for review in object.reviews.all %}-->
+<!--    <li>-->
+<!--        <p>{{ review.text }}</p>-->
+<!--        <p>Автор: {{ review.author }}</p>-->
+<!--        <p>Оценка: {{ review.rating }}</p>-->
+<!--    </li>-->
+<!--    {% empty %}-->
+<!--    <li>Нет отзывов.</li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+{% endblock %}
