@@ -6,11 +6,11 @@
 <p>Имя: {{ user.first_name }}</p>
 <p>Email: {{ user.email }}</p>
 <h3>Отзывы пользователя:</h3>
-{% if user.reviews %}
+{% if user.comments %}
 <ul>
-    {% for review in user.reviews.all %}
+    {% for review in user.comments.all %}
     <li>
-        <a href="{% url 'review_detail' review.product.pk review.pk %}">
+        <a href="{% url 'product_detail' review.product.pk %}">
             Отзыв на {{ review.product.name }} ({{ review.rating }}/5 звезд)
         </a>
     </li>
