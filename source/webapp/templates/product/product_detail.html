@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
+{% block title %}Product Detail{% endblock %}
+{% block content_heading %}Детальная страница товара{% endblock %}
 {% block content %}
+{% if user.groups.all.0.name == "Модераторы" or user.is_superuser %}
 <div class="page_action pb-3">
     <a href="{% url 'product_update' product.pk %}" class="btn btn-primary">Редактировать</a>
     <a href="{% url 'product_delete' product.pk %}" data-bs-toggle="modal"
@@ -34,76 +37,94 @@
         </div>
     </div>
 </div>
-
-
-<h1>{{ product.title }}</h1>
-<p>Категория: {{ product.category }}</p>
-{% if product.description %}
-<p class="card-text"><b>Описание:</b> {{ product.description }}</p>
-{% else %}
-<p class="card-text"><b>Описание:</b> Не добавлено!</p>
 {% endif %}
-<p>
-    {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="200">
-    {% else %}
-    <img src="../../../static/media/no_image.jpg" alt="No Image" width="200">
-    {% endif %}
-</p>
-<h2>Отзывы</h2>
-
-
-<div class="page_action pb-3">
-    <a href="{% url 'review_create' product.pk %}" class="btn btn-primary">Добавить отзыв</a>
-</div>
-
-
-<ul>
-    {% for review in product.reviews.all %}
-    <li>
-        <p>{{ review.text }}</p>
-        <p>Автор: {{ review.author }}</p>
-        <p>Оценка: {{ review.rating }}</p>
-    </li>
-
-    <div class="page_action pb-3">
-        <a href="{% url 'review_update' review.pk %}" class="btn btn-primary">Редактировать</a>
-        <a href="{% url 'review_delete' review.pk %}" data-bs-toggle="modal"
-           data-bs-target="#exampleModal-{{ review.pk }}" class="btn btn-danger">Удалить</a>
-    </div>
-    <div class="confirm-delete">
-        <div class="modal fade" id="exampleModal-{{ review.pk }}" tabindex="-1"
-             aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Подтвердите удаление</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-row form-login">
-                            <p>Вы уверены, что хотите удалить отзыв?!
-                            </p>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{% url 'review_delete' review.pk %}"
-                           class="btn btn-danger">Удалить</a>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Отмена
-                        </button>
-                    </div>
-                </div>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+            {% else %}
+            <img src="../../static/media/no_image.jpg" class="card-img-top" alt="No Image">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 class="card-title">{{ product.name }}</h3>
+                {% if product.description %}
+                <p class="card-text"><b>Описание:</b> {{ product.description }}</p>
+                {% else %}
+                <p class="card-text"><b>Описание:</b> Не добавлено!</p>
+                {% endif %}
+                {% for category in categories %}
+                {% if category.0 == product.category %}
+                <p class="card-text"><b>Категория:</b> {{ category.1 }}</p>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
-
-
+</div>
+<div class="page_action pb-3 pt-5 text-center">
+    <h2>Отзывы</h2>
+    {% if user.groups.all.0.name != "Модераторы" %}
+    <a href="{% url 'review_create' product.pk %}" class="btn btn-secondary">Добавить отзыв</a>
+    {% endif %}
+</div>
+<div class="product_review">
+    {% if product.reviews %}
+    {% for review in product.reviews.all %}
+    <div class="card mb-3 border-dark">
+        <h5 class="card-header">Отзыв #{{ review.pk }}</h5>
+        <div class="card-body">
+            <p><b>Автор:</b> <a href="{% url 'profile_detail' review.author.pk %}">{{ review.author }}</a></p>
+            {% if review.author.email %}
+            <p><b>Email:</b> {{ review.author.email }}</p>
+            {% else %}
+            <p><b>Email:</b> Не добавлен</p>
+            {% endif %}
+            <p><b>Комментарий:</b> {{ review.text }}</p>
+            <p><b>Оценка:</b> {{ review.rating }}</p>
+            {% if user.groups.all.0.name == "Модераторы" or user.is_superuser %}
+            <div class="page_action pb-3">
+                <a href="{% url 'review_update' review.pk %}" class="btn btn-primary">Редактировать</a>
+                <a href="{% url 'review_delete' review.pk %}" data-bs-toggle="modal"
+                   data-bs-target="#exampleModal-{{ review.pk }}" class="btn btn-danger">Удалить</a>
+            </div>
+            <div class="confirm-delete">
+                <div class="modal fade" id="exampleModal-{{ review.pk }}" tabindex="-1"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Подтвердите удаление</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-row form-login">
+                                    <p>Вы уверены, что хотите удалить отзыв?!
+                                    </p>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="{% url 'review_delete' review.pk %}"
+                                   class="btn btn-danger">Удалить</a>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Отмена
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
     {% empty %}
-    <li>Нет отзывов.</li>
+    <h2>Отзывов нет!</h2>
     {% endfor %}
-</ul>
-{% endblock %}
+    {% endif %}
+    {% endblock %}
+</div>

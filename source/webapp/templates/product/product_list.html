@@ -1,13 +1,44 @@
 {% extends 'base.html' %}
+{% block title %}Products View{% endblock %}
+{% block navbar_item %}
+{% include 'partial/search_form.html' %}
+{% endblock %}
+{% block content_heading %}Список товаров{% endblock %}
 {% block content %}
-<h1>Список товаров</h1>
-<ul>
+{% if is_paginated %}
+{% include 'partial/pagination.html' %}
+{% endif %}
+<div class="row row-cols-1 row-cols-md-3 g-4 pt-3">
+    {% if products %}
     {% for product in products %}
-    <li>
-        <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a>
-    </li>
-    {% empty %}
-    <li>Нет товаров.</li>
+    <div class="col mb-3">
+        <div class="card h-100">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            {% else %}
+            <img src="../../static/media/no_image.jpg" class="card-img-top" alt="No Image">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a>
+                </h5>
+                {% for category in categories %}
+                {% if category.0 == product.category %}
+                <p class="card-text"><b>Категория:</b> {{ category.1 }}</p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+    {% else %}
+    <div class="another_view">
+        <h2>Продукты не найдены!</h2>
+        <p><a href="{% url 'product_add' %}">Добавить продукт</a></p>
+    </div>
+    {% endif %}
+</div>
+{% if is_paginated %}
+{% include 'partial/pagination.html' %}
+{% endif %}
 {% endblock %}

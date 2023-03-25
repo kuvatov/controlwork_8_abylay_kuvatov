@@ -29,6 +29,14 @@ class Review(models.Model):
             (5, "5")
         ]
     )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата и время добавления"
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Дата и время обновления"
+    )
 
     def __str__(self):
         return f"{self.author} - {self.product}"

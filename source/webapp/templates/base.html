@@ -28,21 +28,18 @@
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
                         <li class="nav-item username-item">
-                            <a class="nav-link" aria-current="page" href="#">{{ user }}</a>
+                            <a class="nav-link" aria-current="page" href="{% url 'profile_detail' user.pk %}">
+                                {{ user }}</a>
                         </li>
-                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'product_list' %}">товары</a>
                         </li>
+                        {% if user.groups.all.0.name == "Модераторы" or user.is_superuser %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'product_create' %}">добавить
                                 товар</a>
                         </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'profile_detail' user.pk %}">личная
-                                страница</a>
-                        </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">выход</a>
                         </li>
