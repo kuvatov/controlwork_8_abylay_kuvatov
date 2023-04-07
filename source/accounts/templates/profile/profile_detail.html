@@ -3,8 +3,10 @@
 {% block content_heading %}Страница пользователя{% endblock %}
 {% block content %}
 <div class="page_action pb-3">
+    {% if user.pk == request.user.pk %}
     <a href="{% url 'profile_update' user.pk %}" class="btn btn-primary">Редактировать</a>
     <a href="{% url 'profile_password_change' user.pk %}" class="btn btn-danger">Сменить пароль</a>
+    {% endif %}
 </div>
 <div class="card mb-3">
     <h5 class="card-header">{{ user.first_name }} {{ user.last_name }}</h5>
